@@ -2,8 +2,7 @@ import InputField from "@/components/InputField";
 import Messages from "@/components/Messages";
 import Sidebar from "@/components/Sidebar";
 import { useToast } from "@/context/ToastContext";
-import { Cross } from "lucide-react";
-import { Menu } from "lucide-react";
+import { Menu, X, LogOut, Users } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import io from "socket.io-client";
@@ -12,8 +11,6 @@ const Chat = () => {
   const { showToast } = useToast();
   const navigate = useNavigate();
   const socketRef = useRef(null);
-
-  let socket;
 
   const ENDPOINT = import.meta.env.VITE_ENDPOINT;
 
@@ -28,14 +25,13 @@ const Chat = () => {
 
   const userName = searchParams.get("name");
   const chatRoom = searchParams.get("room");
-  const members = [];
 
   useEffect(() => {
     if (!userName || !chatRoom) {
       navigate("/");
       return;
     }
-    socket = io(ENDPOINT);
+    const socket = io(ENDPOINT);
     socketRef.current = socket;
 
     setRoom(chatRoom);
@@ -95,27 +91,75 @@ const Chat = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-white flex">
-      {isMenuOpen && <div className="fixed inset-0 z-20 bg-black/40 md:hidden" onClick={() => setIsMenuOpen(false)} />}
-      <Sidebar room={room} users={users} isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-      <div className="min-h-screen flex flex-col md:flex-row w-full">
-        <div className="w-full md:flex-1 flex flex-col">
-          <div className="sticky top-0 z-20 w-full flex items-center justify-between px-2 py-4 md:px-6 md:py-6 bg-slate-950 text-white text-lg font-bold">
-            <div className="flex gap-2 items-center">
-              <Menu className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} />
-              <h1>
-                Room <span className="text-yellow-300">{room}</span>
-              </h1>
+    <div className="h-screen w-full bg-[oklch(0.12_0_0)] flex overflow-hidden">
+      {/* Mobile overlay */}
+      {isMenuOpen && (
+        <div
+          className="fixed inset-0 z-20 bg-black/60 backdrop-blur-sm animate-fade-in md:hidden"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <Sidebar
+        room={room}
+        users={users}
+        isMenuOpen={isMenuOpen}
+        setIsMenuOpen={setIsMenuOpen}
+      />
+
+      {/* Main Chat Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Header */}
+        <header className="sticky top-0 z-10 flex items-center justify-between px-4 py-3 md:px-6 md:py-4 bg-[oklch(0.16_0_0)] border-b border-white/5">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-all duration-200 cursor-pointer"
+            >
+              {isMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+            <div className="hidden md:flex items-center gap-2.5">
+              <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-white/40 text-sm font-medium">Room</span>
             </div>
-            <Cross className={`rotate-45 cursor-pointer ${isMenuOpen ? "hidden md:block" : "md:block"}`} onClick={handleClose} />
+            <h1 className="text-lg md:text-xl font-bold text-white tracking-tight">
+              <span className="md:ml-0">{room}</span>
+            </h1>
           </div>
-          <div className="flex-1 flex flex-col bg-gray-200">
-            <div className="flex-1 overflow-hidden">
-              <Messages classes="h-full" userName={userName} messages={messages} />
-            </div>
-            <InputField message={message} setMessage={setMessage} sendMessage={sendMessage} />
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setIsMenuOpen(true)}
+              className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-white/50 hover:text-white text-xs font-medium transition-all duration-200 cursor-pointer"
+            >
+              <Users size={14} />
+              {users.length}
+            </button>
+            <button
+              onClick={handleClose}
+              className="flex items-center justify-center w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 text-white/40 hover:text-red-400 transition-all duration-200 cursor-pointer group"
+              title="Leave room"
+            >
+              <LogOut size={16} className="group-hover:scale-110 transition-transform duration-200" />
+            </button>
+          </div>
+        </header>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-hidden relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.12_0_0)] via-[oklch(0.14_0_0)] to-[oklch(0.12_0_0)]" />
+          <div className="relative h-full">
+            <Messages userName={userName} messages={messages} />
           </div>
         </div>
+
+        {/* Input */}
+        <InputField
+          message={message}
+          setMessage={setMessage}
+          sendMessage={sendMessage}
+        />
       </div>
     </div>
   );

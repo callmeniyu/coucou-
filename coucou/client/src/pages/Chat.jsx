@@ -51,6 +51,11 @@ const Chat = () => {
       });
     });
 
+    socket.on("previousMessages", (oldMessages) => {
+      console.log("📜 loading", oldMessages, "old messages");
+      setMessages(oldMessages);
+    });
+
     socket.on("message", (message) => {
       console.log("📩 message:", message);
       setMessages((prev) => [...prev, message]);
@@ -88,6 +93,7 @@ const Chat = () => {
       });
     }
   };
+
   return (
     <div className="min-h-screen w-full bg-white flex">
       {isMenuOpen && <div className="fixed inset-0 z-20 bg-black/40 md:hidden" onClick={() => setIsMenuOpen(false)} />}

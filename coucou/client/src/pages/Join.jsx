@@ -8,6 +8,7 @@ import { useToast } from "@/context/ToastContext";
 import { z } from "zod";
 
 const Join = () => {
+  const ENDPOINT = import.meta.env.VITE_ENDPOINT;
   const { showToast } = useToast();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("join");
@@ -23,7 +24,7 @@ const Join = () => {
     password: z.string().min(6, "Room must be at least 6 characters"),
   });
 
-  const handleSubmit = (e, tab) => {
+  const handleSubmit = async (e, tab) => {
     e.preventDefault();
 
     const result = formSchema.safeParse(formData);
@@ -35,11 +36,31 @@ const Join = () => {
       return;
     }
 
-    if (tab === "join") {
+    try {
+      const endpoint = tab === "join" ? `${ENDPOINT}/room/joinRoom` : `${ENDPOINT}/room/createRoom`;
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        showToast(data.error || "Request failed", "fail", 3000);
+        return;
+      }
+
+      if (tab === "create") {
+        showToast("Room created successfully", "success", 3000);
+      } else {
+        showToast("Joined Room successfully", "success", 3000);
+      }
+
       navigate(`/chat?name=${encodeURIComponent(formData.name)}&room=${encodeURIComponent(formData.room)}`);
-    } else {
-      showToast("Room created successfully", "success", 3000);
-      navigate(`/chat?name=${encodeURIComponent(formData.name)}&room=${encodeURIComponent(formData.room)}`);
+    } catch (error) {
+      console.log(error);
+      showToast(error.message || "Network error", "fail", 3000);
     }
   };
 

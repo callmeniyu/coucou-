@@ -8,7 +8,7 @@ import healthRoute from "./routes/health.route.js";
 import roomRoute from "./routes/room.route.js";
 import { createServer } from "http";
 import { addUser, getUser, getUsersInRoom, removeUser } from "./utils/users.js";
-import Message from "./models/Message.js";
+import Message from "./models/message.js";
 import Room from "./models/room.js";
 
 const app = express();

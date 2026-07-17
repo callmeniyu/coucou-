@@ -1,5 +1,4 @@
 import Room from "../models/room.js";
-
 export const joinRoom = async (req, res) => {
   try {
     const { room, password } = req.body;

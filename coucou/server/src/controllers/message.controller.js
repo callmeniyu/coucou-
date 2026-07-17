@@ -1,5 +1,5 @@
-import Room from "../models/room";
-import Message from "../models/Message";
+import Room from "../models/room.js";
+import Message from "../models/message.js";
 
 export const getRoomMessages = async (req, res) => {
   try {

@@ -223,7 +223,7 @@
 }
 
 .glass-strong {
-  background: oklch(1 0 0 / 10%);
+  background: oklch(0.18 0.005 265 / 92%);
   backdrop-filter: blur(100px);
   -webkit-backdrop-filter: blur(100px);
   border: 1px solid oklch(1 0 0 / 12%);

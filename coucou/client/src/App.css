@@ -7,7 +7,7 @@
 
 @theme inline {
   --font-heading: var(--font-sans);
-  --font-sans: 'Geist Variable', sans-serif;
+  --font-sans: "Geist Variable", sans-serif;
 
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -99,7 +99,9 @@
 
 /* ========== Respect Reduced Motion ========== */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -164,18 +166,32 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 oklch(0.488 0.243 264.376 / 0.4); }
-  50% { box-shadow: 0 0 0 8px oklch(0.488 0.243 264.376 / 0); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 oklch(0.488 0.243 264.376 / 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 8px oklch(0.488 0.243 264.376 / 0);
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .animate-slide-in-right {
@@ -208,14 +224,14 @@
 
 .glass-strong {
   background: oklch(1 0 0 / 10%);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
   border: 1px solid oklch(1 0 0 / 12%);
 }
 
 /* ========== Chat Bubble Tail ========== */
 .chat-bubble-sent::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   right: -6px;
@@ -226,7 +242,7 @@
 }
 
 .chat-bubble-received::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: -6px;
@@ -238,17 +254,16 @@
 
 /* ========== Shimmer Loading ========== */
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 .shimmer {
-  background: linear-gradient(
-    90deg,
-    oklch(1 0 0 / 6%) 25%,
-    oklch(1 0 0 / 12%) 50%,
-    oklch(1 0 0 / 6%) 75%
-  );
+  background: linear-gradient(90deg, oklch(1 0 0 / 6%) 25%, oklch(1 0 0 / 12%) 50%, oklch(1 0 0 / 6%) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
@@ -257,9 +272,7 @@
 .join-bg {
   position: relative;
   overflow: hidden;
-  background: radial-gradient(ellipse at top left, oklch(0.3 0.2 265 / 0.3), transparent 50%),
-              radial-gradient(ellipse at bottom right, oklch(0.4 0.15 200 / 0.2), transparent 50%),
-              oklch(0.12 0 0);
+  background: radial-gradient(ellipse at top left, oklch(0.3 0.2 265 / 0.3), transparent 50%), radial-gradient(ellipse at bottom right, oklch(0.4 0.15 200 / 0.2), transparent 50%), oklch(0.12 0 0);
 }
 
 .join-bg::before {
@@ -274,9 +287,7 @@
   --p2: from -90deg at var(--b) calc(50% - var(--b));
   --e: calc(var(--s) / 2);
   --e-: calc(var(--s) / -2);
-  background:
-    conic-gradient(var(--p1), var(--c)), conic-gradient(var(--p1), var(--c)),
-    conic-gradient(var(--p2), var(--c)), conic-gradient(var(--p2), var(--c));
+  background: conic-gradient(var(--p1), var(--c)), conic-gradient(var(--p1), var(--c)), conic-gradient(var(--p2), var(--c)), conic-gradient(var(--p2), var(--c));
   background-size: var(--s) var(--s);
   animation: g8 12s infinite linear;
   opacity: 0.6;
@@ -289,32 +300,77 @@
 }
 
 @keyframes g8 {
-  0%, 2% {
-    background-position: 0 0, var(--e) var(--e), 0 0, var(--e) var(--e);
+  0%,
+  2% {
+    background-position:
+      0 0,
+      var(--e) var(--e),
+      0 0,
+      var(--e) var(--e);
   }
-  10%, 15% {
-    background-position: 0 0, var(--e) var(--e), 0 var(--e), var(--e) 0;
+  10%,
+  15% {
+    background-position:
+      0 0,
+      var(--e) var(--e),
+      0 var(--e),
+      var(--e) 0;
   }
-  22.5%, 27.5% {
-    background-position: var(--e) 0, 0 var(--e), 0 var(--e), var(--e) 0;
+  22.5%,
+  27.5% {
+    background-position:
+      var(--e) 0,
+      0 var(--e),
+      0 var(--e),
+      var(--e) 0;
   }
-  35%, 40% {
-    background-position: var(--e) 0, 0 var(--e), 0 0, var(--e) var(--e-);
+  35%,
+  40% {
+    background-position:
+      var(--e) 0,
+      0 var(--e),
+      0 0,
+      var(--e) var(--e-);
   }
-  47.5%, 52.5% {
-    background-position: 0 0, var(--e-) var(--e), 0 0, var(--e) var(--e-);
+  47.5%,
+  52.5% {
+    background-position:
+      0 0,
+      var(--e-) var(--e),
+      0 0,
+      var(--e) var(--e-);
   }
-  60%, 65% {
-    background-position: 0 0, var(--e-) var(--e), 0 var(--e-), var(--e) 0;
+  60%,
+  65% {
+    background-position:
+      0 0,
+      var(--e-) var(--e),
+      0 var(--e-),
+      var(--e) 0;
   }
-  72.5%, 77.5% {
-    background-position: var(--e-) 0, 0 var(--e), 0 var(--e-), var(--e) 0;
+  72.5%,
+  77.5% {
+    background-position:
+      var(--e-) 0,
+      0 var(--e),
+      0 var(--e-),
+      var(--e) 0;
   }
-  85%, 90% {
-    background-position: var(--e-) 0, 0 var(--e), 0 0, var(--e) var(--e);
+  85%,
+  90% {
+    background-position:
+      var(--e-) 0,
+      0 var(--e),
+      0 0,
+      var(--e) var(--e);
   }
-  98%, 100% {
-    background-position: 0 0, var(--e) var(--e), 0 0, var(--e) var(--e);
+  98%,
+  100% {
+    background-position:
+      0 0,
+      var(--e) var(--e),
+      0 0,
+      var(--e) var(--e);
   }
 }
 

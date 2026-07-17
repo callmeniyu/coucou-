@@ -224,8 +224,8 @@
 
 .glass-strong {
   background: oklch(1 0 0 / 10%);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
   border: 1px solid oklch(1 0 0 / 12%);
 }
 

@@ -289,11 +289,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📸 Screenshots
 
-> Add screenshots of your app here once you have them. Show:
-> - Join/Create Room page
-> - Active chat with multiple users
-> - Mobile responsive view
-> - Toast notifications
+<img width="922" height="451" alt="Screenshot 2026-07-18 100705" src="https://github.com/user-attachments/assets/7d697863-eae9-4303-bda8-11fb10ad8448" />
+
 
 ---
 
